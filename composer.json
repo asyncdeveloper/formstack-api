@@ -4,5 +4,8 @@
     },
     "scripts": {
         "test": "phpunit"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.5"
     }
 }
