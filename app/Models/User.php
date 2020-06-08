@@ -3,8 +3,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class User
+class User extends Eloquent
 {
+
+    protected $fillable = [ 'name', 'age', 'address' ];
 
 }
