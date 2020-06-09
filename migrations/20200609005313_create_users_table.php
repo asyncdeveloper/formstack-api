@@ -12,8 +12,8 @@ class CreateUsersTable extends AbstractMigration
         $table->addColumn('name', 'string', ['limit' => 191])
           ->addColumn('age', 'integer')
           ->addColumn('address', 'text')
-          ->addColumn('created_at', 'datetime')
-          ->addColumn('updated_at', 'datetime')
+          ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
+          ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
           ->create();
     }
 
