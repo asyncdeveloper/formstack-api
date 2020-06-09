@@ -27,7 +27,10 @@ This is the config for the provisioned image
 | Mysql Database | my_app                 |
 | SSH Username   | vagrant                |
 | SSH Password   | vagrant                |
- 
+
+ - Make sure your SSH is configured to work with Github -
+    [https://help.github.com/articles/generating-an-ssh-key/](https://help.github.com/articles/generating-an-ssh-key/)
+    
 - Update your `/etc/hosts` file
     ```
     echo 192.168.59.76   testbox.test www.testbox.test | sudo tee -a /etc/hosts
