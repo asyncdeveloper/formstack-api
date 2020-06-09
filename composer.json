@@ -17,6 +17,7 @@
         "vlucas/phpdotenv": "^5.0",
         "pecee/simple-router": "4.2.0.6",
         "robmorgan/phinx": "^0.12.1",
-        "rakit/validation": "^1.2"
+        "rakit/validation": "^1.2",
+        "fzaninotto/faker": "^1.9"
     }
 }
