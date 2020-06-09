@@ -38,10 +38,6 @@ class UserController
     {
         $user = User::find($id);
 
-        if(is_null($user)) {
-            return response()->httpCode(404)->json([ 'message' => 'User not found.' ]);
-        }
-
         return response()
           ->httpCode(200)
           ->json([ 'data' => $user ]);
@@ -50,10 +46,6 @@ class UserController
     public function update(string $id)
     {
         $user = User::find($id);
-
-        if(is_null($user)) {
-            return response()->httpCode(404)->json([ 'message' => 'User not found.' ]);
-        }
 
         $data = input()->all([
           'name', 'age', 'address'
@@ -71,11 +63,7 @@ class UserController
 
     public function destroy(string $id)
     {
-        $user = User::find($id);
-
-        if(is_null($user)) {
-            return response()->httpCode(404)->json([ 'message' => 'User not found.' ]);
-        }
+        $user = User::findOrFail($id);
 
         $user->delete();
 
