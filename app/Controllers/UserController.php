@@ -21,8 +21,10 @@ class UserController
     public function store()
     {
         $data = input()->all([
-          'name', 'age', 'address'
+          'email', 'first_name', 'last_name', 'password'
         ]);
+
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         $user = User::create($data);
 
@@ -48,7 +50,7 @@ class UserController
         $user = User::find($id);
 
         $data = input()->all([
-          'name', 'age', 'address'
+          'email', 'first_name', 'last_name'
         ]);
 
         $user->update($data);
