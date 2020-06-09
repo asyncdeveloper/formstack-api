@@ -39,17 +39,13 @@ This is the config for the provisioned image
 - Next you can simply use the `vagrant up` command to start provisioning your local environment!
 
 ## Running the API
-Install the dependencies and run migrations
+Install the dependencies run migrations and seed using setup script
 
 ```console
-$ vagrant ssh
-$ cd /vagrant
-$ composer install
-$ vendor/bin/phinx migrate
-$ mkdir uploads
+$ cat setup.sh | vagrant ssh
 ```
 
-[Run Application in browser](http://www.testbox.test/api/users)
+[Run Application in browser](http://www.testbox.test)
 
 # API documentation:
 API End points and documentation can be found at:
