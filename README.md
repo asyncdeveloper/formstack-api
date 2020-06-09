@@ -46,6 +46,7 @@ $ vagrant ssh
 $ cd /vagrant
 $ composer install
 $ vendor/bin/phinx migrate
+$ mkdir uploads
 ```
 
 [Run Application in browser](http://www.testbox.test/api/users)

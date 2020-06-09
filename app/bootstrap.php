@@ -14,7 +14,6 @@ $dotenv->load();
 
 new App\Core\Database();
 
-require_once 'helpers.php';
+require_once INC_ROOT .'/config/helpers.php';
 
-/* Load external routes file */
-require_once 'routes.php';
+require_once INC_ROOT .'/config/routes.php';
