@@ -1,9 +1,5 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Access-Control-Allow-Origin,Access-Control-Allow-Methods, Authrorization, X_Requested-With');
-header("Content-Type: application/json; charset=UTF-8");
-
 define('INC_ROOT', dirname(__DIR__));
 
 //Include all dependencies of our application
@@ -14,6 +10,4 @@ $dotenv->load();
 
 new App\Core\Database();
 
-require_once INC_ROOT .'/config/helpers.php';
-
-require_once INC_ROOT .'/config/routes.php';
+new App\Core\Router();
