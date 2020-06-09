@@ -18,6 +18,7 @@ class CreateUsersTable extends AbstractMigration
               'name' => 'idx_users_email',
               'limit' => 191
           ])
+          ->addColumn('avatar', 'string', ['limit' => 191])
           ->addColumn('created_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
           ->addColumn('updated_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP'])
           ->create();

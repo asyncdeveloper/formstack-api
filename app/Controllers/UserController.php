@@ -43,6 +43,14 @@ class UserController
               ->json([ 'message' => 'Email already exists.' ]);
         }
 
+        //Image upload
+        $avatarImage = input()->file('avatar');
+        if($avatarImage->getMime() === 'image/png') {
+            $destinationFilename = sprintf('%s.%s', uniqid(), $avatarImage->getExtension());
+            $avatarImage->move(sprintf('uploads/%s', $destinationFilename));
+            $data['avatar'] = $destinationFilename;
+        }
+
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         $user = User::create($data);
