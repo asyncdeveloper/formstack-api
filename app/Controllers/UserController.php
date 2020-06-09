@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use App\Models\User;
+use Rakit\Validation\Validator;
 
 
 class UserController
@@ -20,9 +21,27 @@ class UserController
 
     public function store()
     {
-        $data = input()->all([
-          'email', 'first_name', 'last_name', 'password'
+        $validator = new Validator;
+        $validation = $validator->validate(input()->all(), [
+          'first_name' => 'required|alpha|max:191',
+          'last_name' => 'required|alpha|max:191',
+          'email' => "required|email|max:191|not_in:",
+          'password' => 'required|alpha_num|max:191'
         ]);
+
+        if ($validation->fails()) {
+            return response()
+              ->httpCode(422)
+              ->json([ 'message' => $validation->errors()->all() ]);
+        }
+
+        $data = $validation->getValidatedData();
+
+        if(User::where('email', $data['email'])->get()->count() > 0) {
+            return response()
+              ->httpCode(422)
+              ->json([ 'message' => 'Email already exists.' ]);
+        }
 
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
@@ -38,7 +57,7 @@ class UserController
 
     public function show(string $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         return response()
           ->httpCode(200)
@@ -47,11 +66,33 @@ class UserController
 
     public function update(string $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
-        $data = input()->all([
-          'email', 'first_name', 'last_name'
+        $validator = new Validator;
+        $validation = $validator->validate(input()->all(), [
+          'first_name' => "default:{$user->first_name}|alpha|max:191",
+          'last_name' => "default:{$user->last_name}|alpha|max:191",
+          'email' => "default:{$user->email}|email|max:191"
         ]);
+
+        if ($validation->fails()) {
+            return response()
+              ->httpCode(422)
+              ->json([ 'message' => $validation->errors()->all() ]);
+        }
+
+        $data = $validation->getValidatedData();
+
+        $emailAlreadyExist = User::where([
+            [ 'email', '=', $data['email'] ],
+            [ 'id', '!=', $user->id ],
+          ])->get()->count() > 0 ? true : false ;
+
+        if($emailAlreadyExist) {
+            return response()
+              ->httpCode(422)
+              ->json([ 'message' => 'Email already exists.' ]);
+        }
 
         $user->update($data);
 
